@@ -1,0 +1,24 @@
+.ingredients {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ingredients__types {
+  display: flex;
+}
+
+.ingredients__blocks {
+  max-height: 66vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.ingredients__blocks::-webkit-scrollbar {
+   width: 8px;
+   background-color: #2F2F37;
+}
+
+.ingredients__blocks::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}

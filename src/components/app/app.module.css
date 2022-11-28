@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.main {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.main__header {
+  width: 100%;
+  justify-self: start;
+}
+
+.main__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}

@@ -1,0 +1,46 @@
+.burger {
+  display: flex;
+  flex-direction: column;
+}
+
+.burger__container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.burger__list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.burger__sublist {
+  max-height: 464px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.burger__sublist::-webkit-scrollbar {
+  width: 8px;
+  background-color: #2F2F37;
+}
+
+.burger__sublist::-webkit-scrollbar-thumb {
+ background-color: #8585AD;
+}
+
+.burger__item {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.burger__wrapper {
+  display: flex;
+  align-items: center;
+}
