@@ -22,7 +22,6 @@ function BurgerConstructor() {
         </li>
         <li>
           <ul className={`${styles.burger__list} ${styles.burger__sublist}`}>
-
             {randomFood.map((elem, index) => (
               <li className={`${styles.burger__item} mb-4 pr-2`} key={index}>
                 <DragIcon type="primary" />

@@ -1,24 +1,24 @@
 .container {
   display: flex;
   flex-direction: column;
-  max-width: 1920px;
   margin: 0 auto;
+  max-width: 1920px;
 }
 
 .main {
-  max-width: 1240px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
+  max-width: 1240px;
 }
 
 .main__header {
-  width: 100%;
   justify-self: start;
+  width: 100%;
 }
 
 .main__container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 40px;
+  grid-template-columns: 1fr 1fr;
 }

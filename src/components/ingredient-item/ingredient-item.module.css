@@ -8,10 +8,10 @@
 }
 
 .article__container {
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .article__heading {

@@ -21,7 +21,6 @@ function BurgerIngredients() {
         <IngredientsOfType heading='Соусы' items={sauces} />
         <IngredientsOfType heading='Начинки' items={mains} />
       </div>
-
     </section>
   )
 }
