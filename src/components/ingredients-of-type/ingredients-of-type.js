@@ -1,6 +1,7 @@
 import IngredientItem from "../ingredient-item/ingredient-item";
 import PropTypes from 'prop-types';
 import styles from './ingredients-of-type.module.css';
+import { ingredientType } from "../../utils/types.js";
 
 function IngredientsOfType(props) {
   return (
@@ -17,17 +18,9 @@ function IngredientsOfType(props) {
   )
 }
 
-const itemShape = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired
-});
-
 IngredientsOfType.propTypes = {
   heading: PropTypes.string.isRequired,
-  items: PropTypes.arrayOf(itemShape).isRequired
+  items: PropTypes.arrayOf(ingredientType).isRequired
 }
 
 export default IngredientsOfType;

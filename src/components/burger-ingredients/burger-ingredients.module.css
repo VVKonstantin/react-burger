@@ -9,7 +9,7 @@
 }
 
 .ingredients__blocks {
-  max-height: 66vh;
+  max-height: 64.5vh;
   overflow-x: hidden;
   overflow-y: scroll;
 }
