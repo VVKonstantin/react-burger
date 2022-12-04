@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { getRandomBun, getRandomFood, data } from '../../utils/data.js';
 import styles from './burger-constructor.module.css';
-import { data, getRandomBun, getRandomFood } from '../../utils/data.js';
 
-function BurgerConstructor() {
+function BurgerConstructor({ onClick }) {
 
   const randomBun = getRandomBun(data);
   const randomFood = getRandomFood(data, 6);
@@ -10,8 +11,8 @@ function BurgerConstructor() {
 
   return (
     <section className={styles.burger}>
-      <ul className={`${styles.burger__list} ml-4`}>
-        <li className={`${styles.burger__item} mb-4 pr-4`}>
+      <ul className={`${styles.list} ml-4`}>
+        <li className={`${styles.item} mb-4 pr-4`}>
           <ConstructorElement
             type="top"
             isLocked={true}
@@ -21,9 +22,9 @@ function BurgerConstructor() {
           />
         </li>
         <li>
-          <ul className={`${styles.burger__list} ${styles.burger__sublist}`}>
-            {randomFood.map((elem, index) => (
-              <li className={`${styles.burger__item} mb-4 pr-2`} key={index}>
+          <ul className={`${styles.list} ${styles.sublist}`}>
+            {randomFood.map((elem, ind) => (
+              <li className={`${styles.item} mb-4 pr-2`} key={ind}>
                 <DragIcon type="primary" />
                 <ConstructorElement
                   text={elem.name}
@@ -34,7 +35,7 @@ function BurgerConstructor() {
             ))}
           </ul>
         </li>
-        <li className={`${styles.burger__item} mb-10 mt-4 pr-4`}>
+        <li className={`${styles.item} mb-10 mt-4 pr-4`}>
           <ConstructorElement
             type="bottom"
             isLocked={true}
@@ -44,15 +45,19 @@ function BurgerConstructor() {
           />
         </li>
       </ul>
-      <div className={`${styles.burger__container} mr-4`}>
-        <div className={`${styles.burger__wrapper} mr-10`}>
+      <div className={`${styles.container} mr-4`}>
+        <div className={`${styles.wrapper} mr-10`}>
           <p className='text text_type_digits-medium mr-2'>{priceBurger}</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large">Оформить заказ</Button>
+        <Button htmlType="button" type="primary" size="large" onClick={() => onClick()}>Оформить заказ</Button>
       </div>
     </section>
   )
+}
+
+BurgerConstructor.propTypes = {
+  onClick: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;
