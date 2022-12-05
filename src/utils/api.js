@@ -1,13 +1,16 @@
 import { API_URL } from './constants.js';
 
 export function getData() {
-  const res = fetch(API_URL, {
+  return request(API_URL, {
     method: 'GET',
     header: {
       'Content-type': 'application/json'
     }
   });
-  return res.then(isOk);
+}
+
+function request(url, options) {
+  return fetch(url, options).then(isOk)
 }
 
 function isOk(res) {

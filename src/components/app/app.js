@@ -3,7 +3,9 @@ import { getData } from '../../utils/api.js';
 import AppHeader from '../app-header/app-header.js';
 import BurgerConstructor from '../burger-constructor/burger-constructor.js';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients.js';
-import Modal from '../modal/modal.js'
+import IngredientDetails from "../ingredient-details/ingredient-details.js";
+import Modal from '../modal/modal.js';
+import OrderDetails from "../order-details/order-detailes.js";
 import styles from './app.module.css';
 
 function App() {
@@ -48,7 +50,9 @@ function App() {
           <BurgerConstructor onClick={handleNumberOrder} />
         </div>
       </main>
-      <Modal isOpened={openedModal} toClose={handleCloseModal} item={clickedItem} numberOrder={numberOrder} />
+      <Modal isOpened={openedModal} toClose={handleCloseModal}>
+          {clickedItem ? <IngredientDetails item={clickedItem} /> : <OrderDetails numberOrder={numberOrder} />}
+      </Modal>
     </div>
   )
 }
