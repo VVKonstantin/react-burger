@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { BurgerConstructorContext, IngredientsContext } from '../../services/contexts.js';
+import { IngredientsContext } from '../../services/contexts.js';
 import { getBun, getFoodContent } from '../../utils/data.js';
 import styles from './burger-constructor.module.css';
 
@@ -10,7 +10,6 @@ function BurgerConstructor({ onClick }) {
   const [totalPrice, setTotalPrice] = React.useState(0);
 
   const data = useContext(IngredientsContext);
-  const { burgerIngredients, setBurgerIngredients } = useContext(BurgerConstructorContext);
 
   let bun = React.useMemo(() => getBun(data), [data]);
   let burgerContent = React.useMemo(() => getFoodContent(data), [data]);
@@ -18,15 +17,7 @@ function BurgerConstructor({ onClick }) {
   const calcTotalPrice = React.useCallback(() => {
     const price = burgerContent.reduce((acc, item) => acc += item.price, 0) + 2 * bun.reduce((acc, item) => acc += item.price, 0);
     setTotalPrice(price);
-  }, [data, burgerIngredients]);
-
-  React.useEffect(() => {
-    setBurgerIngredients({
-      bun: [...bun],
-      burgerContent: [...burgerContent],
-      price: totalPrice
-    })
-  }, [bun, burgerContent]);
+  }, [data]);
 
   React.useEffect(() => {
     calcTotalPrice();
@@ -34,8 +25,8 @@ function BurgerConstructor({ onClick }) {
 
   const handleClickOrder = () => {
     const ingredientIds = [];
-    burgerIngredients.bun.forEach(elem => ingredientIds.push(elem._id));
-    burgerIngredients.burgerContent.forEach(elem => ingredientIds.push(elem._id));
+    bun.map(elem => ingredientIds.push(elem._id));
+    burgerContent.map(elem => ingredientIds.push(elem._id));
 
     onClick(ingredientIds);
   };
@@ -44,7 +35,7 @@ function BurgerConstructor({ onClick }) {
     <section className={styles.burger}>
       <ul className={`${styles.list} ml-4`}>
         <li className={`${styles.item} mb-4 pr-4`}>
-          {burgerIngredients.bun.map((item) =>
+          {bun.map((item) =>
             <ConstructorElement
               key={item._id}
               type="top"
@@ -57,7 +48,7 @@ function BurgerConstructor({ onClick }) {
         </li>
         <li>
           <ul className={`${styles.list} ${styles.sublist}`}>
-            {burgerIngredients.burgerContent.map((item) =>
+            {burgerContent.map((item) =>
               <li className={`${styles.item} mb-4 pr-2`} key={item._id}>
                 <DragIcon type="primary" />
                 <ConstructorElement
@@ -70,7 +61,7 @@ function BurgerConstructor({ onClick }) {
           </ul>
         </li>
         <li className={`${styles.item} mb-10 mt-4 pr-4`}>
-          {burgerIngredients.bun.map((item) =>
+          {bun.map((item) =>
             <ConstructorElement
               key={item._id}
               type="bottom"
