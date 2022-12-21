@@ -26,7 +26,7 @@ function BurgerConstructor({ onClick }) {
       burgerContent: [...burgerContent],
       price: totalPrice
     })
-  }, [data]);
+  }, [bun, burgerContent]);
 
   React.useEffect(() => {
     calcTotalPrice();
@@ -44,7 +44,7 @@ function BurgerConstructor({ onClick }) {
     <section className={styles.burger}>
       <ul className={`${styles.list} ml-4`}>
         <li className={`${styles.item} mb-4 pr-4`}>
-          {bun.map((item) =>
+          {burgerIngredients.bun.map((item) =>
             <ConstructorElement
               key={item._id}
               type="top"
@@ -57,7 +57,7 @@ function BurgerConstructor({ onClick }) {
         </li>
         <li>
           <ul className={`${styles.list} ${styles.sublist}`}>
-            {burgerContent.map((item) =>
+            {burgerIngredients.burgerContent.map((item) =>
               <li className={`${styles.item} mb-4 pr-2`} key={item._id}>
                 <DragIcon type="primary" />
                 <ConstructorElement
@@ -70,7 +70,7 @@ function BurgerConstructor({ onClick }) {
           </ul>
         </li>
         <li className={`${styles.item} mb-10 mt-4 pr-4`}>
-          {bun.map((item) =>
+          {burgerIngredients.bun.map((item) =>
             <ConstructorElement
               key={item._id}
               type="bottom"
