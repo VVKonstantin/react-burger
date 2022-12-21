@@ -211,16 +211,11 @@ export const data = [
   }
 ]
 
-export function getRandomBun(arr) {
-  const buns = arr.filter(item => item.type === 'bun');
-  return buns[Math.floor(Math.random() * buns.length)]
-}
+export const getBun = (arr) => {
+  return arr.filter(item => item.type === 'bun').slice(0, 1)
+};
 
-export function getRandomFood(arr, number) {
-  const food = arr.filter(item => item.type !== 'bun');
-  const randomFood = [];
-  for(let i = 0; i < number; i++) {
-    randomFood[i] = food[Math.floor(Math.random() * food.length)]
-  }
-  return randomFood
-}
+export const getFoodContent = (arr) => {
+
+  return arr.filter(item => item.type !== 'bun').slice(1, 7)
+};

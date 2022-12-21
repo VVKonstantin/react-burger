@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { ingredientType } from "../../utils/types.js";
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsOfType from '../ingredients-of-type/ingredients-of-type.js';
+import { IngredientsContext } from '../../services/contexts.js';
 import styles from './burger-ingredients.module.css'
 
 function BurgerIngredients(props) {
 
-  const { data, onClick } = props;
+  const { onClick } = props;
+  const data = useContext(IngredientsContext);
 
   const buns = data.filter(item => item.type === 'bun');
   const mains = data.filter(item => item.type === 'main');
@@ -36,7 +37,6 @@ function BurgerIngredients(props) {
 }
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientType).isRequired,
   onClick: PropTypes.func.isRequired
 }
 
