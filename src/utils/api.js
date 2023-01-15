@@ -9,7 +9,7 @@ export function getData() {
   });
 }
 
-export function setOrder(data) {
+export function postOrder(data) {
   return request(`${API_URL}orders`, {
     method: 'POST',
     headers: {

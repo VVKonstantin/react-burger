@@ -1,39 +1,96 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { IngredientsContext } from '../../services/contexts.js';
-import { getBun, getFoodContent } from '../../utils/data.js';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useDrop } from 'react-dnd';
+import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ADD_INGREDIENT_TO_BURGER, ADD_BUN_TO_BURGER, CLEAR_BURGER } from '../../services/actions/burger.jsx';
+import { INC_COUNTER, SET_BUN_COUNTER, CLEAR_COUNTERS } from '../../services/actions/ingredients.jsx';
+import { CLEAR_ORDER } from '../../services/actions/order.jsx';
+import { createUniqueId } from '../../utils/funcs.js';
+import { setOrder } from '../../services/actions/order.jsx';
+import OrderDetails from "../order-details/order-detailes.js";
+import BurgerItem from '../burger-item/burger-item.js';
 import styles from './burger-constructor.module.css';
 
-function BurgerConstructor({ onClick }) {
+function BurgerConstructor() {
 
+  const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = React.useState(0);
+  const [disabled, setDisabled] = React.useState(true);
 
-  const data = useContext(IngredientsContext);
+  const [openedOrderModal, setOrderModalOpened] = React.useState(false);
+  const handleCloseOrderModal = () => {
+    setOrderModalOpened(false);
+    setDisabled(true);
+    dispatch({
+      type: CLEAR_BURGER
+    })
+    dispatch({
+      type: CLEAR_COUNTERS
+    })
+  };
 
-  let bun = React.useMemo(() => getBun(data), [data]);
-  let burgerContent = React.useMemo(() => getFoodContent(data), [data]);
+  const handleClickOrder = () => {
+    const ingredientIds = [];
+    ingredientIds.push(bun[0]._id);
+    ingredientsInBurger.map(elem => ingredientIds.push(elem._id));
+    dispatch({
+      type: CLEAR_ORDER
+    })
+    dispatch(setOrder(ingredientIds));
+    setOrderModalOpened(true);
+  };
+
+  const { data, ingredientsInBurger, bun } = useSelector(store => ({
+    data: store.ingredients.ingredientsList,
+    ingredientsInBurger: store.burger.items,
+    bun: store.burger.bun
+  }));
+
+  const [{ isHover }, dropRef] = useDrop({
+    accept: 'items',
+    drop(elem) {
+      const item = createUniqueId(data.filter((el) => el._id === elem._id)[0]);
+      if (item.type !== 'bun') {
+        dispatch({
+          type: ADD_INGREDIENT_TO_BURGER,
+          item: item
+        });
+        dispatch({
+          type: INC_COUNTER,
+          id: item._id
+        });
+      }
+      else {
+        setDisabled(false);
+        dispatch({
+          type: ADD_BUN_TO_BURGER,
+          item: item
+        });
+        dispatch({
+          type: SET_BUN_COUNTER,
+          id: item._id
+        });
+      }
+    },
+    collect: monitor => ({
+      isHover: monitor.isOver()
+    })
+  });
+
+  const borderColor = isHover ? '#8585AD' : 'transparent';
 
   const calcTotalPrice = React.useCallback(() => {
-    const price = burgerContent.reduce((acc, item) => acc += item.price, 0) + 2 * bun.reduce((acc, item) => acc += item.price, 0);
+    const price = ingredientsInBurger.reduce((acc, item) => acc += item.price, 0) + 2 * bun.reduce((acc, item) => acc += item.price, 0);
     setTotalPrice(price);
-  }, [data]);
+  }, [ingredientsInBurger, bun]);
 
   React.useEffect(() => {
     calcTotalPrice();
   }, [calcTotalPrice]);
 
-  const handleClickOrder = () => {
-    const ingredientIds = [];
-    bun.map(elem => ingredientIds.push(elem._id));
-    burgerContent.map(elem => ingredientIds.push(elem._id));
-
-    onClick(ingredientIds);
-  };
-
   return (
     <section className={styles.burger}>
-      <ul className={`${styles.list} ml-4`}>
+      <ul className={`${styles.list} ml-4`} ref={dropRef} style={{ borderColor }}>
         <li className={`${styles.item} mb-4 pr-4`}>
           {bun.map((item) =>
             <ConstructorElement
@@ -46,17 +103,11 @@ function BurgerConstructor({ onClick }) {
             />
           )}
         </li>
-        <li>
+        <li className={`${styles.item}`}>
           <ul className={`${styles.list} ${styles.sublist}`}>
-            {burgerContent.map((item) =>
-              <li className={`${styles.item} mb-4 pr-2`} key={item._id}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image_mobile}
-                />
-              </li>
+            {bun.length === 0 && ingredientsInBurger.length === 0 && <li className={`${styles.start}`}>Добавьте в эту область ингрединеты для бургера</li>}
+            {ingredientsInBurger.map((item, index) =>
+              <BurgerItem key={item.uniqueId} index={index} />
             )}
           </ul>
         </li>
@@ -78,14 +129,11 @@ function BurgerConstructor({ onClick }) {
           <p className='text text_type_digits-medium mr-2'>{totalPrice}</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large" onClick={() => handleClickOrder()}>Оформить заказ</Button>
+        <Button htmlType="button" type="primary" size="large" onClick={() => handleClickOrder()} disabled={disabled}>Оформить заказ</Button>
       </div>
+      <OrderDetails isOpened={openedOrderModal} toClose={handleCloseOrderModal} />
     </section>
   )
-}
-
-BurgerConstructor.propTypes = {
-  onClick: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;
