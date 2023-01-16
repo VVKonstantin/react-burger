@@ -92,16 +92,16 @@ function BurgerConstructor() {
     <section className={styles.burger}>
       <ul className={`${styles.list} ml-4`} ref={dropRef} style={{ borderColor }}>
         <li className={`${styles.item} mb-4 pr-4`}>
-          {bun.map((item) =>
+          {bun.length &&
             <ConstructorElement
-              key={item._id}
+              key={bun[0]._id}
               type="top"
               isLocked={true}
-              text={`${item.name} (верх)`}
-              price={item.price}
-              thumbnail={item.image}
+              text={`${bun[0].name} (верх)`}
+              price={bun[0].price}
+              thumbnail={bun[0].image}
             />
-          )}
+          }
         </li>
         <li className={`${styles.item}`}>
           <ul className={`${styles.list} ${styles.sublist}`}>
@@ -112,16 +112,16 @@ function BurgerConstructor() {
           </ul>
         </li>
         <li className={`${styles.item} mb-10 mt-4 pr-4`}>
-          {bun.map((item) =>
+          {bun.length &&
             <ConstructorElement
-              key={item._id}
+              key={bun[0]._id}
               type="bottom"
               isLocked={true}
-              text={`${item.name} (низ)`}
-              price={item.price}
-              thumbnail={item.image}
+              text={`${bun[0].name} (низ)`}
+              price={bun[0].price}
+              thumbnail={bun[0].image}
             />
-          )}
+          }
         </li>
       </ul>
       <div className={`${styles.container} mr-4`}>

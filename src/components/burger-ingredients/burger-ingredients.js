@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsOfType from '../ingredients-of-type/ingredients-of-type.js';
 import IngredientDetails from "../ingredient-details/ingredient-details.js";
+import Modal from '../modal/modal.js';
 import { DEL_INGREDIENT_INFO } from '../../services/actions/ingredient.jsx';
 import styles from './burger-ingredients.module.css'
 
@@ -73,7 +74,9 @@ function BurgerIngredients() {
         <li id="sauces" ref={saucesRef}><IngredientsOfType heading='Соусы' items={sauces} onClick={handleClickIngredient} /></li>
         <li id="mains" ref={mainsRef}><IngredientsOfType heading='Начинки' items={mains} onClick={handleClickIngredient} /></li>
       </ul>
-      <IngredientDetails isOpened={openedIngredientsModal} toClose={handleCloseIngredientModal} />
+      <Modal isOpened={openedIngredientsModal} toClose={handleCloseIngredientModal} >
+        <IngredientDetails />
+      </Modal>
     </section>
   )
 }

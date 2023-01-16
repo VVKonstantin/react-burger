@@ -11,7 +11,8 @@ import {
 const initialState = {
   ingredientsList: [],
   ingredientsRequest: false,
-  ingredientsFailed: false
+  ingredientsFailed: false,
+  ingredientsSuccess: false
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -27,6 +28,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         ...state,
         ingredientsFailed: false,
         ingredientsRequest: false,
+        ingredientsSuccess: true,
         ingredientsList: action.ingredientsList
       };
     }
