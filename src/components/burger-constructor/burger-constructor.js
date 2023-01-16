@@ -6,6 +6,7 @@ import { ADD_INGREDIENT_TO_BURGER, ADD_BUN_TO_BURGER, CLEAR_BURGER } from '../..
 import { INC_COUNTER, SET_BUN_COUNTER, CLEAR_COUNTERS } from '../../services/actions/ingredients.jsx';
 import { CLEAR_ORDER } from '../../services/actions/order.jsx';
 import { createUniqueId } from '../../utils/funcs.js';
+import Modal from '../modal/modal.js';
 import { setOrder } from '../../services/actions/order.jsx';
 import OrderDetails from "../order-details/order-detailes.js";
 import BurgerItem from '../burger-item/burger-item.js';
@@ -131,7 +132,9 @@ function BurgerConstructor() {
         </div>
         <Button htmlType="button" type="primary" size="large" onClick={() => handleClickOrder()} disabled={disabled}>Оформить заказ</Button>
       </div>
-      <OrderDetails isOpened={openedOrderModal} toClose={handleCloseOrderModal} />
+      <Modal isOpened={openedOrderModal} toClose={handleCloseOrderModal}>
+        <OrderDetails />
+      </Modal>
     </section>
   )
 }
