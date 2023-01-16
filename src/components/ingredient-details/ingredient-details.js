@@ -1,9 +1,7 @@
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import Modal from '../modal/modal.js';
 import styles from './ingredient-details.module.css';
 
-function IngredientDetails({ isOpened, toClose }) {
+function IngredientDetails() {
 
   const { item } = useSelector(store => ({
     item: store.ingredient
@@ -37,11 +35,5 @@ function IngredientDetails({ isOpened, toClose }) {
     </>
   )
 }
-
-IngredientDetails.propTypes = {
-  toClose: PropTypes.func.isRequired,
-  isOpened: PropTypes.bool.isRequired
-}
-
 
 export default IngredientDetails;

@@ -92,7 +92,7 @@ function BurgerConstructor() {
     <section className={styles.burger}>
       <ul className={`${styles.list} ml-4`} ref={dropRef} style={{ borderColor }}>
         <li className={`${styles.item} mb-4 pr-4`}>
-          {bun.length &&
+          {(bun.length > 0) &&
             <ConstructorElement
               key={bun[0]._id}
               type="top"
@@ -112,7 +112,7 @@ function BurgerConstructor() {
           </ul>
         </li>
         <li className={`${styles.item} mb-10 mt-4 pr-4`}>
-          {bun.length &&
+          {(bun.length > 0) &&
             <ConstructorElement
               key={bun[0]._id}
               type="bottom"
