@@ -11,17 +11,20 @@ import { setOrder } from '../../services/actions/order.jsx';
 import OrderDetails from "../order-details/order-detailes.js";
 import BurgerItem from '../burger-item/burger-item.js';
 import styles from './burger-constructor.module.css';
+import { useNavigate } from 'react-router-dom';
 
 function BurgerConstructor() {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [totalPrice, setTotalPrice] = React.useState(0);
-  const [disabled, setDisabled] = React.useState(true);
+  const { user } = useSelector(store => ({
+    user: store.auth.user
+  }))
 
   const [openedOrderModal, setOrderModalOpened] = React.useState(false);
   const handleCloseOrderModal = () => {
     setOrderModalOpened(false);
-    setDisabled(true);
     dispatch({
       type: CLEAR_BURGER
     })
@@ -31,6 +34,10 @@ function BurgerConstructor() {
   };
 
   const handleClickOrder = () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
     const ingredientIds = [];
     ingredientIds.push(bun[0]._id);
     ingredientsInBurger.map(elem => ingredientIds.push(elem._id));
@@ -62,7 +69,6 @@ function BurgerConstructor() {
         });
       }
       else {
-        setDisabled(false);
         dispatch({
           type: ADD_BUN_TO_BURGER,
           item: item
@@ -106,7 +112,7 @@ function BurgerConstructor() {
         </li>
         <li className={`${styles.item}`}>
           <ul className={`${styles.list} ${styles.sublist}`}>
-            {bun.length === 0 && ingredientsInBurger.length === 0 && <li className={`${styles.start}`}>Добавьте в эту область ингрединеты для бургера</li>}
+            {bun.length === 0 && ingredientsInBurger.length === 0 && <li className={`${styles.start}`}>Добавьте в эту область ингредиенты для бургера</li>}
             {ingredientsInBurger.map((item, index) =>
               <BurgerItem key={item.uniqueId} index={index} />
             )}
@@ -130,7 +136,7 @@ function BurgerConstructor() {
           <p className='text text_type_digits-medium mr-2'>{totalPrice}</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button htmlType="button" type="primary" size="large" onClick={() => handleClickOrder()} disabled={disabled}>Оформить заказ</Button>
+        <Button htmlType="button" type="primary" size="large" onClick={() => handleClickOrder()} disabled={!bun.length}>Оформить заказ</Button>
       </div>
       <Modal isOpened={openedOrderModal} toClose={handleCloseOrderModal}>
         <OrderDetails />

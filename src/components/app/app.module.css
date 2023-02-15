@@ -10,6 +10,7 @@
   flex-direction: column;
   margin: 0 auto;
   max-width: 1240px;
+  width: 100%;
 }
 
 .header {

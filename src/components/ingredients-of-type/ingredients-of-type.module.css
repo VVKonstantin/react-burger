@@ -8,3 +8,8 @@
   padding: 0;
   row-gap: 32px;
 }
+
+.link {
+  text-decoration: none;
+  color: white;
+}

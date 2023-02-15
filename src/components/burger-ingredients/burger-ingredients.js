@@ -1,27 +1,19 @@
+import PropTypes from 'prop-types';
 import React, { useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsOfType from '../ingredients-of-type/ingredients-of-type.js';
-import IngredientDetails from "../ingredient-details/ingredient-details.js";
-import Modal from '../modal/modal.js';
-import { DEL_INGREDIENT_INFO } from '../../services/actions/ingredient.jsx';
 import styles from './burger-ingredients.module.css'
 
-function BurgerIngredients() {
+function BurgerIngredients({ toClick }) {
 
-  const [openedIngredientsModal, setIngredientsModalOpened] = React.useState(false);
   const handleClickIngredient = () => {
-    setIngredientsModalOpened(true)
-  };
-  const handleCloseIngredientModal = () => {
-    setIngredientsModalOpened(false);
-    dispatch({ type: DEL_INGREDIENT_INFO })
+    toClick(true)
   };
 
   const { data } = useSelector(store => ({
     data: store.ingredients.ingredientsList
   }));
-  const dispatch = useDispatch();
 
   const buns = data.filter(item => item.type === 'bun');
   const mains = data.filter(item => item.type === 'main');
@@ -74,11 +66,12 @@ function BurgerIngredients() {
         <li id="sauces" ref={saucesRef}><IngredientsOfType heading='Соусы' items={sauces} onClick={handleClickIngredient} /></li>
         <li id="mains" ref={mainsRef}><IngredientsOfType heading='Начинки' items={mains} onClick={handleClickIngredient} /></li>
       </ul>
-      <Modal isOpened={openedIngredientsModal} toClose={handleCloseIngredientModal} >
-        <IngredientDetails />
-      </Modal>
     </section>
   )
+}
+
+BurgerIngredients.propTypes = {
+  toClick: PropTypes.func.isRequired
 }
 
 export default BurgerIngredients;
