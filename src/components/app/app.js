@@ -12,6 +12,7 @@ import IngredientPage from '../../pages/ingredient-page/ingredient-page.js';
 import IngredientDetails from '../ingredient-details/ingredient-details.js';
 import { DEL_INGREDIENT_INFO } from '../../services/actions/ingredient.jsx';
 import styles from './app.module.css';
+import { getCookie } from '../../utils/cookie.js';
 
 function App() {
 
@@ -31,8 +32,8 @@ function App() {
   const user = useSelector(store => store.auth.user);
 
   useEffect(() => {
-    dispatch(getProfileUser());
-  }, [dispatch]);
+    if (getCookie('accessToken')) dispatch(getProfileUser());
+  }, [dispatch, user]);
 
   return (
     <div className={styles.container}>
