@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import AppHeader from '../app-header/app-header.js';
-import { getIngredients } from '../../services/actions/ingredients.jsx';
 import { ForgotPasswordPage, MainPage, LoginPage, PageNotFound, ProfileFormPage, ProfilePage, RegisterPage, ResetPasswordPage } from '../../pages/index.jsx';
 import { ProtectedRouteElement } from '../protected-route-element/protected-route-element.js';
 import { getProfileUser } from '../../services/actions/auth';
-import { getCookie } from '../../utils/cookie';
 import Modal from '../modal/modal.js';
 import IngredientPage from '../../pages/ingredient-page/ingredient-page.js';
 import IngredientDetails from '../ingredient-details/ingredient-details.js';
@@ -30,11 +28,10 @@ function App() {
     navigate(-1);
   };
 
+  const user = useSelector(store => store.auth.user);
+
   useEffect(() => {
-    dispatch(getIngredients());
-    if (getCookie("accessToken")) {
-      dispatch(getProfileUser());
-    }
+    dispatch(getProfileUser());
   }, [dispatch]);
 
   return (
@@ -44,11 +41,11 @@ function App() {
         <main className={styles.main}>
           <Routes location={background || location}>
             <Route path='/' element={<MainPage toClick={setIngredientsModalOpened} />} />
-            <Route path='/login' element={<ProtectedRouteElement element={<LoginPage />} unreg={true} />} />
-            <Route path='/register' element={<ProtectedRouteElement element={<RegisterPage />} unreg={true} />} />
-            <Route path='/forgot-password' element={<ProtectedRouteElement element={<ForgotPasswordPage />} unreg={true} />} />
-            <Route path='/reset-password' element={<ProtectedRouteElement element={<ResetPasswordPage />} unreg={true} />} />
-            <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} unreg={false} />} >
+            <Route path='/login' element={<ProtectedRouteElement element={<LoginPage />} />} />
+            <Route path='/register' element={<ProtectedRouteElement element={<RegisterPage />} />} />
+            <Route path='/forgot-password' element={<ProtectedRouteElement element={<ForgotPasswordPage />} />} />
+            <Route path='/reset-password' element={<ProtectedRouteElement element={<ResetPasswordPage />} />} />
+            <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} user={user} />} >
               <Route path='' element={<ProfileFormPage />} />
               <Route path='orders' element={<PageNotFound />} />
               <Route path='logout' element={<PageNotFound />} />

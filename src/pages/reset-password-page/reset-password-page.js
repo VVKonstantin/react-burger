@@ -31,8 +31,9 @@ function ResetPasswordPage() {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem('codesent')) navigate('/forgot-password');
-  })
+    if (!localStorage.getItem('codesent'))
+    navigate('/forgot-password');
+  }, []);
 
   return (
     <section className={styles.container}>

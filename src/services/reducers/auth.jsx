@@ -7,7 +7,8 @@ import {
   LOGIN_FAILED,
   LOGOUT,
   PROFILE_UPDATE_SUCCESS,
-  PROFILE_SUCCESS
+  PROFILE_SUCCESS,
+  PROFILE_REQUEST
 } from '../actions/auth';
 
 const initialState = {
@@ -58,18 +59,27 @@ export const authReducer = (state = initialState, action) => {
     case LOGIN_FAILED: {
       return {
         ...state,
+        authRequest: false,
         authFailed: true
+      }
+    }
+    case PROFILE_REQUEST: {
+      return {
+        ...state,
+        authRequest: true
       }
     }
     case PROFILE_UPDATE_SUCCESS: {
       return {
         ...state,
+        authRequest: false,
         user: action.user
       }
     }
     case PROFILE_SUCCESS: {
       return {
         ...state,
+        authRequest: false,
         user: action.user
       }
     }

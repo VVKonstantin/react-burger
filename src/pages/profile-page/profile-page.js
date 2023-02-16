@@ -1,18 +1,27 @@
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink, useLocation, Outlet } from 'react-router-dom';
 import styles from './profile-page.module.css';
 import { useDispatch } from 'react-redux';
+import { getProfileUser } from '../../services/actions/auth';
 import { logoutUser } from '../../services/actions/auth';
 
 function ProfilePage() {
 
-  const location = useLocation();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const user = useSelector(store => store.auth.user);
+
+  useEffect(() => {
+    dispatch(getProfileUser());
+  }, [dispatch]);
 
   const logout = () => {
     dispatch(logoutUser());
   };
 
   return (
+    user ? (
     <section className={`${styles.container}`}>
       <div className={`${styles.menu} mr-15`}>
         <nav>
@@ -44,6 +53,7 @@ function ProfilePage() {
       </div>
       <Outlet />
     </section>
+    ) : <></>
   )
 }
 
