@@ -13,6 +13,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details.js';
 import { DEL_INGREDIENT_INFO } from '../../services/actions/ingredient.jsx';
 import styles from './app.module.css';
 import { getCookie } from '../../utils/cookie.js';
+import { getIngredients } from '../../services/actions/ingredients.jsx';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
   const user = useSelector(store => store.auth.user);
 
   useEffect(() => {
+    dispatch(getIngredients);
     if (getCookie('accessToken')) dispatch(getProfileUser());
   }, [dispatch, user]);
 
