@@ -33,9 +33,12 @@ function App() {
   const user = useSelector(store => store.auth.user);
 
   useEffect(() => {
-    dispatch(getIngredients);
     if (getCookie('accessToken')) dispatch(getProfileUser());
   }, [dispatch, user]);
+
+  useEffect(() => {
+    dispatch(getIngredients);
+  }, [dispatch]);
 
   return (
     <div className={styles.container}>
