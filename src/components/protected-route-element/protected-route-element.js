@@ -17,5 +17,6 @@ export function ProtectedRouteElement({ element, user = null }) {
 }
 
 ProtectedRouteElement.propTypes = {
-  element: PropTypes.element.isRequired
+  element: PropTypes.element.isRequired,
+  user: PropTypes.object
 }
