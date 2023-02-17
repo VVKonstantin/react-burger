@@ -34,7 +34,7 @@ function App() {
 
   useEffect(() => {
     if (getCookie('accessToken')) dispatch(getProfileUser());
-  }, [dispatch, user]);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getIngredients);
