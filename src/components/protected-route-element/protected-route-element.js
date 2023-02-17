@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import { Navigate, useLocation } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
 
-export function ProtectedRouteElement({ element, user = null }) {
+export function ProtectedRouteElement({ element }) {
 
   const location = useLocation();
 
-  const checkUser = (getCookie('accessToken') || user);
+  const checkUser = (getCookie('accessToken'));
 
   const unreg = location.pathname.startsWith('/profile') ? false : true;
 
@@ -17,6 +17,5 @@ export function ProtectedRouteElement({ element, user = null }) {
 }
 
 ProtectedRouteElement.propTypes = {
-  element: PropTypes.element.isRequired,
-  user: PropTypes.object
+  element: PropTypes.element.isRequired
 }

@@ -12,10 +12,6 @@ function ProfilePage() {
   const location = useLocation();
   const user = useSelector(store => store.auth.user);
 
-  useEffect(() => {
-    dispatch(getProfileUser());
-  }, [dispatch]);
-
   const logout = () => {
     dispatch(logoutUser());
   };

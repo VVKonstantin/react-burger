@@ -51,7 +51,7 @@ function App() {
             <Route path='/register' element={<ProtectedRouteElement element={<RegisterPage />} />} />
             <Route path='/forgot-password' element={<ProtectedRouteElement element={<ForgotPasswordPage />} />} />
             <Route path='/reset-password' element={<ProtectedRouteElement element={<ResetPasswordPage />} />} />
-            <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} user={user} />} >
+            <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} />} >
               <Route path='' element={<ProfileFormPage />} />
               <Route path='orders' element={<PageNotFound />} />
               <Route path='logout' element={<PageNotFound />} />

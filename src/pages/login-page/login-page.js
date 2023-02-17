@@ -26,7 +26,7 @@ function LoginPage() {
       <h1 className={`${styles.title} text text_type_main-medium pb-6`}>Вход</h1>
       <form className={styles.form} onSubmit={onSubmit}>
         <EmailInput name='email' value={form.email} onChange={onChange} />
-        <PasswordInput name='password' value={form.password} onChange={onChange} />
+        <PasswordInput name='password' value={form.password} onChange={onChange} required />
         <Button htmlType="submit" type="primary" size="medium">
           Войти
         </Button>
