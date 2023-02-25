@@ -1,41 +1,34 @@
 import { getCookie } from '../../utils/cookie.js';
-import {
-  WS_CONNECTION_START,
-  WS_CONNECTION_START_AUTH_USER,
-  WS_CONNECTION_SUCCESS,
-  WS_CONNECTION_ERROR,
-  WS_CONNECTION_CLOSED,
-  WS_GET_MESSAGE
-} from '../actions/socket.jsx';
 
-export const socketMiddleware = (wsUrl) => {
+export const socketMiddleware = (wsUrl, wsActions) => {
   return store => {
     let socket = null;
 
     return next => action => {
       const { dispatch } = store;
       const { type, payload } = action;
+      const { wsInit, wsInitAuth, onOpen, onClose, onError, onMessage} = wsActions;
       const token = getCookie('accessToken');
 
-      if (type === WS_CONNECTION_START) {
-        socket = new WebSocket(`${wsUrl}/all`);
+      if (type === wsInit) {
+        socket = new WebSocket(`${wsUrl}${payload}`);
       }
 
-      if (type === WS_CONNECTION_START_AUTH_USER) {
+      if (type === wsInitAuth) {
         socket = new WebSocket(`${wsUrl}?token=${token}`);
       }
 
       if (socket) {
         socket.onopen = event => {
-          dispatch({ type: WS_CONNECTION_SUCCESS, payload: event });
+          dispatch({ type: onOpen, payload: event });
         }
 
         socket.onerror = event => {
-          dispatch({ type: WS_CONNECTION_ERROR, payload: event });
+          dispatch({ type: onError, payload: event });
         }
 
         socket.onclose = event => {
-          dispatch({ type: WS_CONNECTION_CLOSED, payload: event });
+          dispatch({ type: onClose, payload: event });
         }
 
         socket.onmessage = event => {
@@ -43,7 +36,7 @@ export const socketMiddleware = (wsUrl) => {
           const parseData = JSON.parse(data);
           const { success, ...restParsedData } = parseData;
 
-          dispatch({ type: WS_GET_MESSAGE, payload: restParsedData });
+          dispatch({ type: onMessage, payload: restParsedData });
         }
       }
       next(action);

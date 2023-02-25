@@ -15,7 +15,7 @@ function IngredientsOfType(props) {
       <ul className={`${styles.list} ml-4 mr-4`}>
         {items.map((item) => (
           <li key={item._id}>
-            <Link className={`${styles.link}`} to={`/ingredients/${item._id}`} state={{background: location}}>
+            <Link className={`${styles.link}`} to={`/ingredients/${item._id}`} state={{locationIng: location}}>
               <IngredientItem item={item} onClick={onClick} />
             </Link>
           </li>

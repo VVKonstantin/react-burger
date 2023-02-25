@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
 import { Link, useLocation } from 'react-router-dom';
 import OrdersItem from '../orders-item/orders-item';
 
 import styles from './orders-list.module.css';
-import { object } from 'prop-types';
 
 function OrdersList({ data, onClick }) {
 
@@ -22,9 +20,9 @@ function OrdersList({ data, onClick }) {
           {
             data.orders.map(item => {
               return (
-                <li key={item.number} className={styles.block}>
-                  <Link className={styles.link} to={`/feed/${item._id}`} state={{ background: location }}>
-                    <OrdersItem key={uuidv4()} order={item} onClick={handleClick} />
+                <li key={item._id} className={styles.block}>
+                  <Link className={styles.link} to={`/feed/${item._id}`} state={{ locationFeed: location }}>
+                    <OrdersItem order={item} onClick={handleClick} />
                   </Link>
                 </li>
               )
@@ -35,9 +33,9 @@ function OrdersList({ data, onClick }) {
             {
               data.orders.map(item => {
                 return (
-                  <li key={item.number} className={styles.block}>
-                    <Link className={styles.link} to={`/profile/orders/${item._id}`} state={{ background: location }}>
-                      <OrdersItem key={uuidv4()} order={item} onClick={handleClick} />
+                  <li key={item._id} className={styles.block}>
+                    <Link className={styles.link} to={`/profile/orders/${item._id}`} state={{ locationProfile: location }}>
+                      <OrdersItem order={item} onClick={handleClick} />
                     </Link>
                   </li>
                 )

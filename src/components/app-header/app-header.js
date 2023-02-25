@@ -10,7 +10,7 @@ function AppHeader() {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === '/feed') setActive('Лента заказов');
+    if (location.pathname.startsWith('/feed')) setActive('Лента заказов');
     else if (location.pathname.startsWith('/profile') || location.pathname.startsWith('/login')) setActive('Личный кабинет');
     else setActive('Конструктор');
   }, [location]);

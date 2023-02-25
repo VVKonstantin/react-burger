@@ -1,16 +1,8 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getIngredients } from '../../services/actions/ingredients.jsx';
 import styles from './ingredient-page.module.css';
 
 function IngredientPage() {
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
 
   const { id } = useParams();
   const { ingredients } = useSelector(store => ({

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
 import styles from './orders-statistics.module.css';
 
 function OrdersStatistics({ data }) {
@@ -16,7 +15,7 @@ function OrdersStatistics({ data }) {
 
             {doneOrders.slice(0, 10).map(item => {
               return (
-                <li key={uuidv4()}
+                <li key={item._id}
                   className={`${styles.listItem} text text_type_digits-default`}>
                   {item.number}
                 </li>
@@ -30,7 +29,7 @@ function OrdersStatistics({ data }) {
           <ul className={styles.numbersList}>
             {undoneOrders.slice(0, 10).map(item => {
               return (
-                <li key={uuidv4()}
+                <li key={item._id}
                   className={`${styles.listItemW} text text_type_digits-default`}>
                   {item.number}
                 </li>

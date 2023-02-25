@@ -10,21 +10,12 @@ import styles from './feed-page.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
-import { getIngredients } from '../../services/actions/ingredients.jsx';
-
 function FeedPage({ toClick }) {
 
   const dispatch = useDispatch();
-  const { ingredients } = useSelector(store => ({
-    ingredients: store.ingredients.ingredientsList
-  }));
 
   useEffect(() => {
-    if (ingredients.length === 0) dispatch(getIngredients());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START })
+    dispatch({ type: WS_CONNECTION_START, payload: '/all' })
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED })
     }

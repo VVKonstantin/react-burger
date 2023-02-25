@@ -21,7 +21,8 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const background = location.state && location.state.background;
+  const background = location.state?.locationIng || location.state?.locationFeed ||
+    location.state?.locationProfile || location;
 
   const [openedIngredientsModal, setIngredientsModalOpened] = React.useState(false);
   const [openedFeedModal, setFeedModalOpened] = React.useState(false);
@@ -52,7 +53,7 @@ function App() {
       <AppHeader />
       <DndProvider backend={HTML5Backend}>
         <main className={styles.main}>
-          <Routes location={background || location}>
+          <Routes location={background}>
             <Route path='/' element={<MainPage toClick={setIngredientsModalOpened} />} />
             <Route path='/login' element={<ProtectedRouteElement element={<LoginPage />} />} />
             <Route path='/register' element={<ProtectedRouteElement element={<RegisterPage />} />} />
@@ -66,25 +67,25 @@ function App() {
             <Route path='/profile/orders/:id' element={<ProtectedRouteElement element={<OrderInfoPage />} />} />
             <Route path='/feed' element={<FeedPage toClick={setFeedModalOpened} />}></Route>
             <Route path='/feed/:id' element={<OrderInfoPage />}></Route>
-            <Route path='/ingredients/:id' element={<IngredientPage />} />
+            <Route path={`/ingredients/:id`} element={<IngredientPage />} />
             <Route path='*' element={<PageNotFound />} />
           </Routes>
 
-          {background && (
+          {location.state?.locationIng && (
             <Routes>
-              <Route path="/ingredients/:id" element={<Modal isOpened={openedIngredientsModal} toClose={handleCloseIngredientModal}><IngredientDetails /></Modal>} />
+              <Route path="/ingredients/:id" element={<Modal isOpened={openedIngredientsModal} toClose={handleCloseIngredientModal} ><IngredientDetails /></Modal>} />
             </Routes>
           )}
 
-          {background && (
+          {location.state?.locationFeed && (
             <Routes>
-              <Route path="/feed/:id" element={<Modal isOpened={openedFeedModal} toClose={handleCloseFeedModal}><OrderInfoPage type={'modal'} /></Modal>} />
+              <Route path="/feed/:id" element={<Modal isOpened={openedFeedModal} toClose={handleCloseFeedModal} ><OrderInfoPage type={'modal'} /></Modal>} />
             </Routes>
           )}
 
-          {background && (
+          {location.state?.locationProfile && (
             <Routes>
-              <Route path="/profile/orders/:id" element={<Modal isOpened={openedFeedModal} toClose={handleCloseFeedModal}><OrderInfoPage type={'modal'} /></Modal>} />
+              <Route path="/profile/orders/:id" element={<Modal isOpened={openedFeedModal} toClose={handleCloseFeedModal} ><OrderInfoPage type={'modal'} /></Modal>} />
             </Routes>
           )}
 

@@ -100,15 +100,15 @@ export function requestRefreshToken() {
       token: getCookie('refreshToken')
     })
   })
-  .then(res => {
-    if (res.success) {
-      setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
-      setCookie('refreshToken', res.refreshToken);
-    }
-  })
-  .catch(e => {
-    console.log(e);
-  })
+    .then(res => {
+      if (res.success) {
+        setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+        setCookie('refreshToken', res.refreshToken);
+      }
+    })
+    .catch(e => {
+      console.log(e);
+    })
 }
 
 export function getData() {

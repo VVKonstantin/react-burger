@@ -5,20 +5,14 @@ import {
 } from '../../services/actions/socket.jsx'
 
 import OrdersList from '../../components/orders-list/orders-list';
-
 import styles from './user-orders-page.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
-import { getIngredients } from '../../services/actions/ingredients.jsx';
 
 function UserOrdersPage({ toClick }) {
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
 
   const { data, isGot } = useSelector(store => ({
     data: store.wsData.orders,
