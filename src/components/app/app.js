@@ -4,7 +4,7 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import AppHeader from '../app-header/app-header.js';
-import { ForgotPasswordPage, MainPage, LoginPage, PageNotFound, ProfileFormPage, ProfilePage, RegisterPage, ResetPasswordPage } from '../../pages/index.jsx';
+import { UserOrdersPage, FeedPage, ForgotPasswordPage, MainPage, LoginPage, PageNotFound, ProfileFormPage, ProfilePage, RegisterPage, ResetPasswordPage, OrderInfoPage } from '../../pages/index.jsx';
 import { ProtectedRouteElement } from '../protected-route-element/protected-route-element.js';
 import { getProfileUser } from '../../services/actions/auth';
 import Modal from '../modal/modal.js';
@@ -20,15 +20,22 @@ function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
   const background = location.state && location.state.background;
 
   const [openedIngredientsModal, setIngredientsModalOpened] = React.useState(false);
+  const [openedFeedModal, setFeedModalOpened] = React.useState(false);
 
   const handleCloseIngredientModal = () => {
     setIngredientsModalOpened(false);
     dispatch({ type: DEL_INGREDIENT_INFO });
     navigate(-1);
   };
+
+  const handleCloseFeedModal = () => {
+    setFeedModalOpened(false);
+    navigate(-1);
+  }
 
   const user = useSelector(store => store.auth.user);
 
@@ -37,7 +44,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getIngredients);
+    dispatch(getIngredients());
   }, [dispatch]);
 
   return (
@@ -53,9 +60,12 @@ function App() {
             <Route path='/reset-password' element={<ProtectedRouteElement element={<ResetPasswordPage />} />} />
             <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} />} >
               <Route path='' element={<ProfileFormPage />} />
-              <Route path='orders' element={<PageNotFound />} />
+              <Route path='orders' element={<UserOrdersPage toClick={setFeedModalOpened} />} />
               <Route path='logout' element={<PageNotFound />} />
             </Route>
+            <Route path='/profile/orders/:id' element={<ProtectedRouteElement element={<OrderInfoPage />} />} />
+            <Route path='/feed' element={<FeedPage toClick={setFeedModalOpened} />}></Route>
+            <Route path='/feed/:id' element={<OrderInfoPage />}></Route>
             <Route path='/ingredients/:id' element={<IngredientPage />} />
             <Route path='*' element={<PageNotFound />} />
           </Routes>
@@ -63,6 +73,18 @@ function App() {
           {background && (
             <Routes>
               <Route path="/ingredients/:id" element={<Modal isOpened={openedIngredientsModal} toClose={handleCloseIngredientModal}><IngredientDetails /></Modal>} />
+            </Routes>
+          )}
+
+          {background && (
+            <Routes>
+              <Route path="/feed/:id" element={<Modal isOpened={openedFeedModal} toClose={handleCloseFeedModal}><OrderInfoPage type={'modal'} /></Modal>} />
+            </Routes>
+          )}
+
+          {background && (
+            <Routes>
+              <Route path="/profile/orders/:id" element={<Modal isOpened={openedFeedModal} toClose={handleCloseFeedModal}><OrderInfoPage type={'modal'} /></Modal>} />
             </Routes>
           )}
 

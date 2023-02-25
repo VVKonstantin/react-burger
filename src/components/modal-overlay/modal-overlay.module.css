@@ -12,6 +12,7 @@
   width: 100%;
   min-width: 320px;
   transition: visibility .2s linear, opacity .2s linear;
+  z-index: 100;
 }
 
 .overlay_opened {

@@ -1,0 +1,11 @@
+.header {
+  justify-self: start;
+  width: 100%;
+}
+
+.main__container {
+  display: grid;
+  gap: 60px;
+  grid-template-columns: 1fr 1fr;
+  min-height: 765px;
+}

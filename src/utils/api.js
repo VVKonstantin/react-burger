@@ -124,7 +124,8 @@ export function postOrder(data) {
   return request(`${API_URL}orders`, {
     method: 'POST',
     headers: {
-      'Content-type': 'application/json'
+      'Content-type': 'application/json',
+      authorization: "Bearer " + getCookie('accessToken')
     },
     body: JSON.stringify({
       "ingredients": data

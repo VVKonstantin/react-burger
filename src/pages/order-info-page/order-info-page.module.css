@@ -1,0 +1,15 @@
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin: 122px auto 0;
+  max-width: 640px;
+}
+
+.modal {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto 0;
+  max-width: 640px;
+}

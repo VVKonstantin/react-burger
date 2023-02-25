@@ -41,6 +41,7 @@ function BurgerConstructor() {
     const ingredientIds = [];
     ingredientIds.push(bun[0]._id);
     ingredientsInBurger.map(elem => ingredientIds.push(elem._id));
+    ingredientIds.push(bun[0]._id);
     dispatch({
       type: CLEAR_ORDER
     })

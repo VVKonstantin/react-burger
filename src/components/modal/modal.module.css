@@ -8,11 +8,11 @@
 }
 
 .close {
-  border: none;
   background-color: transparent;
+  border: none;
   height: 24px;
   position: absolute;
-  width: 24px;
-  top: 0;
   right: 0;
+  top: 0;
+  width: 24px;
 }

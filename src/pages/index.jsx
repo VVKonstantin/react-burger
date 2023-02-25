@@ -6,6 +6,9 @@ import ProfileFormPage from './profile-form-page/profile-form-page.js';
 import ProfilePage from './profile-page/profile-page.js';
 import RegisterPage from './register-page/register-page.js';
 import ResetPasswordPage from './reset-password-page/reset-password-page.js';
+import FeedPage from './feed-page/feed-page.js';
+import UserOrdersPage from './user-orders-page/user-orders-page.js';
+import OrderInfoPage from './order-info-page/order-info-page.js';
 
 export {
   ForgotPasswordPage,
@@ -15,5 +18,8 @@ export {
   ProfileFormPage,
   ProfilePage,
   RegisterPage,
-  ResetPasswordPage
+  ResetPasswordPage,
+  FeedPage,
+  UserOrdersPage,
+  OrderInfoPage
 };

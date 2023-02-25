@@ -10,7 +10,7 @@ function AppHeader() {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === '/notexist') setActive('Лента заказов');
+    if (location.pathname === '/feed') setActive('Лента заказов');
     else if (location.pathname.startsWith('/profile') || location.pathname.startsWith('/login')) setActive('Личный кабинет');
     else setActive('Конструктор');
   }, [location]);
@@ -23,7 +23,7 @@ function AppHeader() {
             <HeaderTab type={BurgerIcon} active={active} handleTab={setActive} path={'/'}>Конструктор</HeaderTab>
           </li>
           <li className={`${styles.item} mr-28`}>
-            <HeaderTab type={ListIcon} active={active} handleTab={setActive} path={'/notexist'}>Лента заказов</HeaderTab>
+            <HeaderTab type={ListIcon} active={active} handleTab={setActive} path={'/feed'}>Лента заказов</HeaderTab>
           </li>
         </ul>
         <Logo />

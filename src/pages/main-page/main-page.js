@@ -9,6 +9,7 @@ import styles from './main-page.module.css';
 function MainPage({ toClick }) {
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
