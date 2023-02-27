@@ -30,6 +30,5 @@ export function getCookie(name) {
 }
 
 export function deleteCookie(name) {
-  setCookie(name, "", { expires: -1 });
-
+  setCookie(name, null, { expires: -1 });
 }

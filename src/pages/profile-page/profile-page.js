@@ -1,19 +1,19 @@
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink, useLocation, Outlet } from 'react-router-dom';
+import { NavLink, useLocation, Outlet, useNavigate } from 'react-router-dom';
 import styles from './profile-page.module.css';
 import { useDispatch } from 'react-redux';
-import { getProfileUser } from '../../services/actions/auth';
 import { logoutUser } from '../../services/actions/auth';
 
 function ProfilePage() {
 
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const user = useSelector(store => store.auth.user);
 
   const logout = () => {
     dispatch(logoutUser());
+    navigate('/login');
   };
 
   return (

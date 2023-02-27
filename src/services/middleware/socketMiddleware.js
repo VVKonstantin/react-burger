@@ -24,6 +24,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         }
 
         socket.onerror = event => {
+          console.log('we are here ERROR');
           dispatch({ type: onError, payload: event });
         }
 
@@ -36,7 +37,13 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           const parseData = JSON.parse(data);
           const { success, ...restParsedData } = parseData;
 
-          dispatch({ type: onMessage, payload: restParsedData });
+          if (restParsedData.message === 'Invalid or missing token' ||
+          restParsedData === 'jwt expired') {
+            dispatch({ type: onError, payload: restParsedData.message });
+          }
+          else {
+            dispatch({ type: onMessage, payload: restParsedData });
+          }
         }
       }
       next(action);

@@ -1,5 +1,5 @@
 import { API_URL } from './constants.js';
-import { getCookie, setCookie } from './cookie.js';
+import { deleteCookie, getCookie, setCookie } from './cookie.js';
 
 export function requestLogin(form) {
   return request(`${API_URL}auth/login`, {
@@ -101,10 +101,10 @@ export function requestRefreshToken() {
     })
   })
     .then(res => {
-      if (res.success) {
-        setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
-        setCookie('refreshToken', res.refreshToken);
-      }
+      deleteCookie('accessToken');
+      deleteCookie('refreshToken');
+      setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+      setCookie('refreshToken', res.refreshToken);
     })
     .catch(e => {
       console.log(e);
@@ -141,5 +141,5 @@ function isOk(res) {
   if (res.ok) {
     return res.json();
   }
-  return Promise.reject(`Ошибка: ${res.status}`);
+  return res.json().then(err => Promise.reject(err));
 }

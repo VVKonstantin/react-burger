@@ -112,12 +112,13 @@ export function getProfileUser() {
         dispatch({
           type: PROFILE_FAILED
         });
-        if (res.message === 'jwt expired') {
+        if (res.message === 'jwt expired' || 'jwt malformed') {
           dispatch(refreshToken(getProfileUser()));
         }
       });
   }
 }
+
 
 export function updateProfileUser(form) {
   return function (dispatch) {
@@ -138,7 +139,7 @@ export function updateProfileUser(form) {
         dispatch({
           type: PROFILE_UPDATE_FAILED
         });
-        if (res.message === 'jwt expired') {
+        if (res === 'Ошибка') {
           dispatch(refreshToken(updateProfileUser()));
         }
       });

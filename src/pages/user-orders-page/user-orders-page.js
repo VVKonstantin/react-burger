@@ -14,20 +14,25 @@ function UserOrdersPage({ toClick }) {
 
   const dispatch = useDispatch();
 
-  const { data, isGot } = useSelector(store => ({
+  const { data, isGot, wsError } = useSelector(store => ({
     data: store.wsData.orders,
-    isGot: store.wsData.isGot
+    isGot: store.wsData.isGot,
+    wsError: store.wsData.wsError
+  }));
+
+  const { user } = useSelector(store => ({
+    user: store.auth.user
   }));
 
   useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START_AUTH_USER })
+    if(user) dispatch({ type: WS_CONNECTION_START_AUTH_USER });
     return () => {
-      dispatch({ type: WS_CONNECTION_CLOSED })
-    }
-  }, [dispatch]);
+      dispatch({ type: WS_CONNECTION_CLOSED });
+    };
+  }, []);
 
   return (
-    isGot ?
+    data ?
       <>
         <div className={styles.main__container}>
           <OrdersList data={data} onClick={toClick} />

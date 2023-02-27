@@ -1,13 +1,18 @@
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import styles from './ingredient-details.module.css';
 
 function IngredientDetails() {
 
-  const { item } = useSelector(store => ({
-    item: store.ingredient
+  const { id } = useParams();
+  const { ingredients } = useSelector(store => ({
+    ingredients: store.ingredients.ingredientsList
   }));
 
+  const item = ingredients.find(item => item._id === id);
+
   return (
+    item && (
     <>
       <h2 className={`text text_type_main-large ${styles.heading} ml-10 mr-10 mt-10`}>Детали ингредиента</h2>
       <article className={styles.detailes}>
@@ -33,6 +38,7 @@ function IngredientDetails() {
         </ul>
       </article>
     </>
+  )
   )
 }
 
