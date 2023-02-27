@@ -6,7 +6,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import AppHeader from '../app-header/app-header.js';
 import { UserOrdersPage, FeedPage, ForgotPasswordPage, MainPage, LoginPage, PageNotFound, ProfileFormPage, ProfilePage, RegisterPage, ResetPasswordPage, OrderInfoPage } from '../../pages/index.jsx';
 import { ProtectedRouteElement } from '../protected-route-element/protected-route-element.js';
-import { checkUserAccess, getProfileUser } from '../../services/actions/auth';
+import { getProfileUser } from '../../services/actions/auth';
 import Modal from '../modal/modal.js';
 import IngredientPage from '../../pages/ingredient-page/ingredient-page.js';
 import IngredientDetails from '../ingredient-details/ingredient-details.js';
@@ -40,12 +40,8 @@ function App() {
 
   const user = useSelector(store => store.auth.user);
 
-  // useEffect(() => {
-  //   if (getCookie('accessToken')) dispatch(getProfileUser());
-  // }, [dispatch]);
-
   useEffect(() => {
-   if(getCookie('accessToken')) dispatch(getProfileUser());
+    if(getCookie('accessToken')) dispatch(getProfileUser());
   }, [dispatch]);
 
   useEffect(() => {

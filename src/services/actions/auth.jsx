@@ -1,5 +1,9 @@
-import { requestRegister, requestLogin, requestLogout, requestProfile, requestUpdateProfile, requestRefreshToken } from "../../utils/api";
+import { requestRegister, requestLogin, requestLogout, requestProfile, requestUpdateProfile } from "../../utils/api";
 import { setCookie, deleteCookie } from "../../utils/cookie";
+
+import { refreshTokenRequest } from "../../utils/api";
+
+import { getCookie } from "../../utils/cookie";
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
@@ -86,62 +90,56 @@ export function logoutUser() {
   }
 }
 
-export function refreshToken(cb) {
+export function updateProfileUser(form) {
   return function (dispatch) {
-    requestRefreshToken()
-      .then(() => dispatch(cb))
-  }
+    dispatch({ type: PROFILE_UPDATE_REQUEST });
+    requestUpdateProfile(form, getCookie("accessToken"))
+      .then((res) => {
+        dispatch({
+          type: PROFILE_UPDATE_SUCCESS,
+          user: res.user
+        });
+      })
+      .catch((err) => {
+        if (err.message === "jwt expired" || "jwt malformed") {
+          dispatch(refreshUserToken(getCookie("refreshToken"))).then(() => {
+            requestUpdateProfile(form, getCookie("accessToken"))
+              .then((res) => {
+                dispatch({
+                  type: PROFILE_UPDATE_SUCCESS,
+                  user: res.user
+                });
+              })
+              .catch(() => {
+                dispatch({ type: PROFILE_UPDATE_FAILED });
+              });
+          });
+        }
+      });
+  };
 }
 
 export function getProfileUser() {
   return function (dispatch) {
-    dispatch({
-      type: PROFILE_REQUEST
-    });
-    requestProfile()
-      .then(res => {
-        if (!res.success) throw res;
-        else {
-          dispatch({
-            type: PROFILE_SUCCESS,
-            user: res.user
-          });
-        }
+    return requestProfile(getCookie("accessToken"))
+      .then((res) => {
+        dispatch({ type: PROFILE_SUCCESS, user: res.user });
       })
-      .catch(res => {
-        dispatch({
-          type: PROFILE_FAILED
-        });
-        if (res.message === 'jwt expired' || 'jwt malformed') {
-          dispatch(refreshToken(getProfileUser()));
+      .catch((err) => {
+        if (err.message === "jwt expired" || "jwt malformed") {
+          dispatch(refreshUserToken(getCookie("refreshToken")));
         }
       });
-  }
+  };
 }
 
-
-export function updateProfileUser(form) {
+export function refreshUserToken(token) {
   return function (dispatch) {
-    dispatch({
-      type: PROFILE_UPDATE_REQUEST
-    });
-    requestUpdateProfile(form)
-      .then(res => {
-        if (!res.success) throw res;
-        else {
-          dispatch({
-            type: PROFILE_UPDATE_SUCCESS,
-            user: res.user
-          });
-        }
-      })
-      .catch(res => {
-        dispatch({
-          type: PROFILE_UPDATE_FAILED
-        });
-        if (res === 'Ошибка') {
-          dispatch(refreshToken(updateProfileUser()));
-        }
+    return refreshTokenRequest(token)
+      .then((res) => {
+        setCookie("accessToken", res.accessToken.split('Bearer ')[1]);
+        setCookie("refreshToken", res.refreshToken);
+        dispatch(getProfileUser(getCookie("accessToken")));
       });
-  }
+  };
 }

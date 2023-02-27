@@ -1,5 +1,5 @@
 import { API_URL } from './constants.js';
-import { deleteCookie, getCookie, setCookie } from './cookie.js';
+import { getCookie } from './cookie.js';
 
 export function requestLogin(form) {
   return request(`${API_URL}auth/login`, {
@@ -65,52 +65,6 @@ export function requestResetForgottenPassword(form) {
   });
 }
 
-export function requestProfile() {
-  return request(`${API_URL}auth/user`, {
-    method: 'GET',
-    headers: {
-      'Content-type': 'application/json',
-      authorization: "Bearer " + getCookie('accessToken')
-    }
-  });
-}
-
-export function requestUpdateProfile(form) {
-  return request(`${API_URL}auth/user`, {
-    method: 'PATCH',
-    headers: {
-      'Content-type': 'application/json',
-      authorization: "Bearer " + getCookie('accessToken')
-    },
-    body: JSON.stringify({
-      name: form.name,
-      email: form.email,
-      password: form.password
-    })
-  });
-}
-
-export function requestRefreshToken() {
-  return request(`${API_URL}auth/token`, {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify({
-      token: getCookie('refreshToken')
-    })
-  })
-    .then(res => {
-      deleteCookie('accessToken');
-      deleteCookie('refreshToken');
-      setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
-      setCookie('refreshToken', res.refreshToken);
-    })
-    .catch(e => {
-      console.log(e);
-    })
-}
-
 export function getData() {
   return request(`${API_URL}ingredients`, {
     method: 'GET',
@@ -142,4 +96,40 @@ function isOk(res) {
     return res.json();
   }
   return res.json().then(err => Promise.reject(err));
+}
+
+export function requestProfile() {
+  return request(`${API_URL}auth/user`, {
+    headers: {
+      'Content-type': 'application/json',
+      authorization: "Bearer " + getCookie('accessToken')
+    }
+  });
+}
+
+export function requestUpdateProfile(form) {
+  return request(`${API_URL}auth/user`, {
+    method: 'PATCH',
+    headers: {
+      'Content-type': 'application/json',
+      authorization: "Bearer " + getCookie('accessToken')
+    },
+    body: JSON.stringify({
+      name: form.name,
+      email: form.email,
+      password: form.password
+    })
+  });
+}
+
+export function refreshTokenRequest() {
+  return request(`${API_URL}auth/token`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      token: getCookie('refreshToken')
+    })
+  })
 }
