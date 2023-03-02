@@ -27,7 +27,7 @@ function FeedPage({ toClick }) {
   }));
 
   return (
-    isGot &&
+    isGot && data &&
     <>
       <h1 className={`text text_type_main-large ${styles.header} mt-10 mb-5`}>Лента заказов</h1>
       <div className={styles.main__container}>

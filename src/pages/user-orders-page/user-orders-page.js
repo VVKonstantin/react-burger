@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 import { getProfileUser } from '../../services/actions/auth.jsx';
+import { getCookie } from '../../utils/cookie.js';
 
 
 function UserOrdersPage({ toClick }) {
@@ -17,7 +18,7 @@ function UserOrdersPage({ toClick }) {
   const dispatch = useDispatch();
 
   const { data, isGot, wsError } = useSelector(store => ({
-    data: store.wsData.orders,
+    data: store.wsData.ordersAuth,
     isGot: store.wsData.isGot,
     wsError: store.wsData.wsError
   }));
@@ -27,17 +28,19 @@ function UserOrdersPage({ toClick }) {
   }));
 
   useEffect(() => {
-    if(user) dispatch({ type: WS_CONNECTION_START_AUTH_USER });
+    const token = getCookie('accessToken');
+    if(user) dispatch({ type: WS_CONNECTION_START_AUTH_USER, payload: `?token=${token}` });
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, []);
 
   useEffect(() => {
+    const token = getCookie('accessToken');
     if (wsError) {
       dispatch({ type: WS_CONNECTION_CLOSED });
       dispatch(getProfileUser())
-        .then(() => dispatch({ type: WS_CONNECTION_START_AUTH_USER }))
+        .then(() => dispatch({ type: WS_CONNECTION_START_AUTH_USER, payload: `?token=${token}` }))
         .catch(() => dispatch({ type: WS_CONNECTION_CLOSED }));
     }
   }, [wsError]);

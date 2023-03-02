@@ -7,15 +7,10 @@ export const socketMiddleware = (wsUrl, wsActions) => {
     return next => action => {
       const { dispatch } = store;
       const { type, payload } = action;
-      const { wsInit, wsInitAuth, onOpen, onClose, onError, onMessage} = wsActions;
-      const token = getCookie('accessToken');
+      const { wsInit, onOpen, onClose, onError, onMessage} = wsActions;
 
       if (type === wsInit) {
         socket = new WebSocket(`${wsUrl}${payload}`);
-      }
-
-      if (type === wsInitAuth) {
-        socket = new WebSocket(`${wsUrl}?token=${token}`);
       }
 
       if (socket) {
@@ -24,7 +19,6 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         }
 
         socket.onerror = event => {
-          console.log('we are here ERROR');
           dispatch({ type: onError, payload: event });
         }
 

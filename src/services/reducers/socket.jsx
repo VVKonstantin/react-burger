@@ -3,12 +3,14 @@ import {
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
-  WS_GET_MESSAGE
+  WS_GET_MESSAGE,
+  WS_GET_MESSAGE_AUTH
 } from '../actions/socket.jsx'
 
 const initialState = {
   wsConnected: false,
   orders: null,
+  ordersAuth: null,
   wsError: false,
   isGot: false
 }
@@ -41,6 +43,13 @@ export const wsReducer = (state = initialState, action) => {
         orders: action.payload,
         isGot: true
       }
+
+      case WS_GET_MESSAGE_AUTH:
+        return {
+          ...state,
+          ordersAuth: action.payload,
+          isGot: true
+        }
 
   default:
     return state;
