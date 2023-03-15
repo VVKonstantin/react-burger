@@ -39,3 +39,15 @@
 .item:last-of-type {
   justify-self: end;
 }
+
+.link {
+  color: white;
+  cursor: pointer;
+  display: flex;
+  margin: 0;
+  text-decoration: none;
+}
+
+.text_noActive {
+  color: #8585AD;
+}
