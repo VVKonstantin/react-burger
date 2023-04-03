@@ -1,46 +1,20 @@
-# Getting Started with Create React App
+# Проект: Космическая бургерная от Яндекс Практикум, курс Веб разработчик плюс, спринты 7, 8, 9 и 10
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Страница проекта](https://konstantingravvavilov.github.io/react-burger/ "Перейти на страницу проекта")
 
-## Available Scripts
+### Представляет собой многостраничный сайт с возможностью авторизации, верстка выполнена в соответствии с макетом в Figma
 
-In the project directory, you can run:
+В ходе выполнения были отработаны
+1. Верстка сайта в соответствии с макетом в Figma
+2. Организация взаимодействия с сервером
+3. Открытие/ закрытие модальных окон, реализация их корректной работы при перезагрузке
+4. Формирование заказа перетаскиванием ингредиентов в специальную область
+5. Настройка маршрутизации
+6. Реализация авторизации на сайте с помощью токенов, автоматическое обновление токенов
+7. Реализация ленты заказов с ипользованием непрерывного соединения
+8. Типизация проекта TypeScript
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Были использованы
+1. HTML + CSS + JSX
+2. React + React DnD + Redux
+3. TypeScript
