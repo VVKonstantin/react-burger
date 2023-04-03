@@ -1,0 +1,35 @@
+.ingredients {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+}
+
+.blocks {
+  list-style-type: none;
+  max-height: 64.6vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  scroll-behavior: smooth;
+  margin-bottom: 0;
+}
+
+.blocks::-webkit-scrollbar {
+   background-color: #2F2F37;
+   width: 8px;
+}
+
+.blocks::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
+.tabs {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  text-decoration: none;
+}

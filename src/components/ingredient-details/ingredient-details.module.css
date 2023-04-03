@@ -1,0 +1,41 @@
+.heading {
+  align-items: center;
+  display: flex;
+  min-height: 64px;
+}
+
+.detailes {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 520px;
+}
+
+.image {
+  width: 480px;
+}
+
+.name {
+  text-align: center;
+}
+
+.container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 125px 111px 112px 112px;
+  list-style: none;
+}
+
+.column {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  margin: 0;
+  padding: 0;
+}

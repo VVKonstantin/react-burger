@@ -1,0 +1,15 @@
+.list {
+  column-gap: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  list-style-type: none;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
+  row-gap: 32px;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}

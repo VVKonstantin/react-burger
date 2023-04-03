@@ -1,0 +1,24 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0 0 80px;
+}
+
+.buttons {
+  display: flex;
+  gap: 28px;
+  justify-content: flex-end;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  color: #4C4CFF;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.button:hover {
+  color: white;
+}

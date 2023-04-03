@@ -1,0 +1,21 @@
+.overlay {
+  align-items: center;
+  background-color: rgba(0, 0, 0, .6);
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  min-width: 320px;
+  transition: visibility .2s linear, opacity .2s linear;
+  z-index: 100;
+}
+
+.overlay_opened {
+  visibility: visible;
+  opacity: 1;
+}

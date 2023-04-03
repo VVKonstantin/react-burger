@@ -1,0 +1,36 @@
+.container {
+  display: grid;
+  gap: 60px;
+  max-width: 580px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  justify-content: space-between;
+}
+
+.subheader {
+  margin: 0;
+}
+
+.numbersList {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 8px;
+  height: 153px;
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+}
+
+.listItem {
+  color: #00cccc;
+}
+
+.number {
+  text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25),
+    0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+}

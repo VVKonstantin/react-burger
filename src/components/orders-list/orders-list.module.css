@@ -1,0 +1,61 @@
+.orders {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.blocks {
+  list-style-type: none;
+  margin-bottom: 0;
+  margin-top: 0;
+  max-height: 73.9vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+.blocksLarge {
+  list-style-type: none;
+  margin-bottom: 0;
+  margin-top: 0;
+  max-height: 78.9vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+.blocksLarge::-webkit-scrollbar {
+  background-color: #2F2F37;
+  width: 8px;
+}
+
+.blocksLarge::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
+.blocks::-webkit-scrollbar {
+  background-color: #2F2F37;
+  width: 8px;
+}
+
+.blocks::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}
+
+.block {
+  margin-bottom: 16px;
+}
+
+.block:last-of-type {
+  margin-bottom: 0;
+}
+
+.link {
+  color: white;
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  width: 100%;
+}
